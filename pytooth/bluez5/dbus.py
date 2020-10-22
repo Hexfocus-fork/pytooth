@@ -170,6 +170,7 @@ class MediaTransport:
 
         logger.debug("Acquiring OS file descriptor for transport - {}".format(
             self._proxy.path))
+        logger.debug("State = {}".format(self._proxy.get("State")))
         self._fd, self._read_mtu, self._write_mtu = \
             self._proxy.proxy.TryAcquire()
         self._fd = self._fd.take()
@@ -185,8 +186,9 @@ class MediaTransport:
         if not self._acquired:
             return
 
-        logger.debug("Releasing the media transport.")
-        self._proxy.proxy.Release()
+        logger.debug("Released the media transport.")
+        logger.debug("State = {}".format(self._proxy.get("State")))
+        # self._proxy.proxy.Release()
         self._acquired = False
 
     def __repr__(self):

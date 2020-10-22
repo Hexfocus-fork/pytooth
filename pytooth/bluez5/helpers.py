@@ -22,6 +22,7 @@ _dtop_type_map = {
     dbus.UInt64: int
 }
 
+
 def dbus_to_py(obj):
     """Helper function that recursively converts a dbus-python object to native
     Python types. If a type is not mapped, it will be returned as-is.
@@ -39,6 +40,7 @@ def dbus_to_py(obj):
     if obj.__class__ in _dtop_type_map:
         return _dtop_type_map[obj.__class__](obj)
     return obj
+
 
 class DBusProxy:
     """Helper class that combines a method proxy object and a property proxy
@@ -68,6 +70,7 @@ class DBusProxy:
 
     def set(self, name, value):
         self._props.Set(self._interface, name, value)
+
 
 class Bluez5Utils:
     """Provides some helpful utility functions for interacting with bluez5.
@@ -130,7 +133,7 @@ class Bluez5Utils:
             obj = Bluez5Utils.get_adapter(
                 bus=bus,
                 adapter_path=path)
-            
+
             if not address or address.upper() == obj.get("Address").upper():
                 return obj
 
@@ -177,7 +180,7 @@ class Bluez5Utils:
             proxy=bus.get_object(Bluez5Utils.OBEX_SERVICE_NAME, "/org/bluez/obex"),
             path="/org/bluez/obex",
             interface=Bluez5Utils.OBEX_CLIENT_INTERFACE)
-    
+
     @staticmethod
     def get_obex_session(bus, session_path):
         return DBusProxy(

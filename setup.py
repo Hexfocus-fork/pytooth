@@ -13,10 +13,6 @@ with open('README.md') as f:
 # parse the reqs/deps files
 with open('requirements.txt') as f:
     install_requirements = f.read().split("\n")
-with open('requirements_dev.txt') as f:
-    test_requirements = f.read().split("\n")
-with open('dependencies.txt') as f:
-    dependency_requirements = f.read().split("\n")
 
 # prepare
 packages_dir = os.path.join(
@@ -63,9 +59,9 @@ setup(
     package_data={
         "": ["*.txt", "*.rst", "*.md"]
     },
-    tests_require=test_requirements,
+    tests_require=[],
     install_requires=install_requirements,
-    dependency_links=dependency_requirements,
+    dependency_links=[],
     entry_points={
         "console_scripts": [
             "pytooth-test = pytooth.tests.main:main",
